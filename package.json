@@ -1,0 +1,28 @@
+{
+  "name": "linked-in-backend",
+  "version": "1.0.0",
+  "description": "Paul And Hatem's backend server and database for the linked in project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pasha127/linked-in-backend.git"
+  },
+  "author": "Paul Levitsky & Hatem Almahmood Alyakoub",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pasha127/linked-in-backend/issues"
+  },
+  "homepage": "https://github.com/Pasha127/linked-in-backend#readme",
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "cloudinary": "^1.32.0",
+    "cors": "^2.8.5"
+  }
+}
