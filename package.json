@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Paul And Hatem's backend server and database for the linked in project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config ./src/server.js",
+    "start": "node ./src/server.js"
   },
   "repository": {
     "type": "git",

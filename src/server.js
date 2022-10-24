@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import listEndpoints from "express-list-endpoints";
-import reviewRouter from "./reviews/index.js";
-import userRouter from "./users/index.js"; 
+import postsRouter from "./api/posts/index.js";
 import errorHandler from "./errorHandler.js";
 import { join } from "path"
 import mongoose from "mongoose";
@@ -14,8 +13,8 @@ const publicFolderPath = join(process.cwd(), "./public");
 server.use(express.static(publicFolderPath))
 server.use(cors())
 server.use(express.json())
-server.use("/posts", postRouter)
-server.use("/users", userRouter)
+server.use("/posts", postsRouter)
+
 server.use(errorHandler)
 
 mongoose.connect(process.env.MONGO_CONNECTION_URL)
