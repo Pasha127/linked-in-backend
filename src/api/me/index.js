@@ -118,4 +118,4 @@ userRouter.put("/images/:userId/pic",cloudinaryUploader, async (req,res,next)=>{
 })
 
 
-export default productRouter;
+export default userRouter;

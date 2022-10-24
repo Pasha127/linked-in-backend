@@ -2,7 +2,34 @@ import { checkSchema, validationResult } from "express-validator"
 import createHttpError from "http-errors"
 
 const userSchema = {
- //schema
+        role: {
+          isString: {
+            errorMessage: "Role is a mandatory field and needs to be a string!",
+          }
+        },
+        company: {
+          isString: {
+            errorMessage: "Company is a mandatory field and needs to be a string!",
+          }
+        },
+        startDate:{
+          isDate: {
+            errorMessage: "Start date is a mandatory field and needs to be a date!",
+          }
+        },
+        endDate: {
+
+        },
+        description: {
+          isString: {
+            errorMessage: "Description is a mandatory field and needs to be a string!",
+          }
+        },
+        area: {
+          isString: {
+            errorMessage: "Area is a mandatory field and needs to be a string!",
+          }
+        }
   
 }
 
