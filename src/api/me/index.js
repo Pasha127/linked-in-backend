@@ -64,7 +64,7 @@ userRouter.get("/", async (req, res, next) => {
       .skip(mongoQuery.options.skip)
       .limit(mongoQuery.options.limit);
     res.status(200).send({
-      links: mongoQuery.links(localEndpoint, total),
+      links: mongoQuery.links(serverEndpoint, total),
       total,
       totalPages: Math.ceil(total / mongoQuery.options.limit),
       users,

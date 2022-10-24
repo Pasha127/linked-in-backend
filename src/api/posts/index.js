@@ -8,7 +8,7 @@ import postModel from "./model.js";
 import q2m from "query-to-mongo";
 
 /* const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`; */
-const serverEndpoint= `${process.env.SERVER_URL}/users` 
+const serverEndpoint= `${process.env.SERVER_URL}/posts` 
 
 const cloudinaryUploader = multer({
   storage: new CloudinaryStorage({
@@ -31,7 +31,7 @@ postsRouter.get("/", async (req, res, next) => {
       .skip(mongoQuery.options.skip)
       .limit(mongoQuery.options.limit);
     res.status(200).send({
-      links: mongoQuery.links(localEndpoint, total),
+      links: mongoQuery.links(serverEndpoint, total),
       total,
       totalPages: Math.ceil(total / mongoQuery.options.limit),
       posts,
