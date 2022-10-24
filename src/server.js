@@ -15,7 +15,7 @@ server.use(express.static(publicFolderPath))
 server.use(cors())
 server.use(express.json())
 server.use("/posts", postRouter)
-server.use("/users, userRouter)
+server.use("/users", userRouter)
 server.use(errorHandler)
 
 mongoose.connect(process.env.MONGO_CONNECTION_URL)
