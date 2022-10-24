@@ -14,4 +14,4 @@ const userDbSchema = new Schema(
     {timestamps: true}
   )
   
-  export default model("User",userDbSchema)
+  export default model("Post",userDbSchema)

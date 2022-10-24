@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import postsRouter from "./api/posts/index.js";
+import userRouter from "./api/me/index.js";
 import errorHandler from "./errorHandler.js";
 import { join } from "path"
 import mongoose from "mongoose";
@@ -14,6 +15,7 @@ server.use(express.static(publicFolderPath))
 server.use(cors())
 server.use(express.json())
 server.use("/posts", postsRouter)
+server.use("/users", userRouter)
 
 server.use(errorHandler)
 
