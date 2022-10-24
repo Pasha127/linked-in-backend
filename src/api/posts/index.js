@@ -7,8 +7,8 @@ import { CloudinaryStorage } from "multer-storage-cloudinary";
 import postModel from "./model.js";
 import q2m from "query-to-mongo";
 
-const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`;
-/* const serverEndpoint= `${process.env.SERVER_URL}/users` */
+/* const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`; */
+const serverEndpoint= `${process.env.SERVER_URL}/users` 
 
 const cloudinaryUploader = multer({
   storage: new CloudinaryStorage({

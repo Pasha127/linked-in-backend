@@ -11,8 +11,8 @@ import { pipeline, Readable, Stream } from "stream";
 
 import mongo from "mongodb";
 
-const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`;
-/* const serverEndpoint= `${process.env.SERVER_URL}/users` */
+/* const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`; */
+ const serverEndpoint= `${process.env.SERVER_URL}/users`
 
 const cloudinaryUploader = multer({
   storage: new CloudinaryStorage({
