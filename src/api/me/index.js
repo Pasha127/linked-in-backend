@@ -88,8 +88,7 @@ userRouter.get("/:userId", async (req, res, next) => {
   }
 });
 
-userRouter.post(
-  "/",
+userRouter.post("/",
   checkUserSchema,
   checkValidationResult,
   async (req, res, next) => {
