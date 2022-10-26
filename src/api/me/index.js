@@ -9,7 +9,9 @@ import q2m from "query-to-mongo";
 import json2csv from "json2csv";
 import { pipeline, Readable, Stream } from "stream";
 
+
 import mongo from "mongodb";
+import { getPDFReadableStream } from "./tools.js";
 
 const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`;
 /* const serverEndpoint= `${process.env.SERVER_URL}/users` */
@@ -52,6 +54,24 @@ userRouter.get("/:userId/CSV", async (req, res, next) => {
     next(error);
   }
 });
+userRouter.get("/:userId/pdf", async (req, res, next) => {
+  try {
+    // SOURCE (PDF Readable Stream) --> DESTINATION (http response)
+
+    res.setHeader("Content-Disposition", "attachment; filename=user.pdf")
+    let user = await userModel.findById(req.params.userId)
+    const source = getPDFReadableStream(user)
+   
+    const destination = res
+
+    pipeline(source, destination, err => {
+      if (err) console.log(err)
+    })
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
 
 userRouter.get("/", async (req, res, next) => {
   try {
@@ -153,5 +173,6 @@ userRouter.delete("/:userId", async (req, res, next) => {
     next(error);
   }
 });
+
 
 export default userRouter;
