@@ -6,6 +6,7 @@ import userRouter from "./api/me/index.js";
 import errorHandler from "./errorHandler.js";
 import { join } from "path"
 import mongoose from "mongoose";
+import requestRouter from "./api/friends/index.js";
 const server = express();
 const port = process.env.PORT || 3001
 const publicFolderPath = join(process.cwd(), "./public");
@@ -16,6 +17,7 @@ server.use(cors())
 server.use(express.json())
 server.use("/posts", postsRouter)
 server.use("/users", userRouter)
+server.use("/requests", requestRouter)
 
 server.use(errorHandler)
 

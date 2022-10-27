@@ -23,6 +23,7 @@ const userDbSchema = new Schema(
     area: { type: String, required: true },
     image: { type: String, required: true },
     username: { type: String, required: true },
+    friends: [],
     experiences: [experienceDbSchema],
   },
   { timestamps: true }
