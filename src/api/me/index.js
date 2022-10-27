@@ -77,8 +77,9 @@ userRouter.get("/", async (req, res, next) => {
 userRouter.get("/me", async (req, res, next) => {
   try {
     console.log(req.headers.origin, `GET user: ${req.headers} at:`, new Date());
-    const username= req.headers.username;
+    const username= req.headers.authorization;
     const foundUser = await userModel.findOne({username: username});
+    console.log(foundUser);
     if (foundUser) {
       res.status(200).send(foundUser);
     } else {
