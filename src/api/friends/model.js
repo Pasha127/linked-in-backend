@@ -1,17 +1,16 @@
-import { ObjectID } from "bson";
-import e from "cors";
+
 import {Schema, model} from "mongoose";
-import { array } from "mongoose/lib/utils";
 
 
-const userDbSchema = new Schema(
+
+const requestSchema = new Schema(
     {
+      sender: {type: String, required: true},
+      receiver: {type: String, required: true},
+      status: {type: String , required: true,   enum: ["pending", "accepted", "denied"], default: "pending"}
+    },         
     
-    request: [],
-    friends: []
-         
-    },
     {timestamps: true}
   )
   
-  export default model("Post",userDbSchema)
+  export default model("request",requestSchema)
