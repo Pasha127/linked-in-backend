@@ -8,7 +8,7 @@ const userDbSchema = new Schema(
         username: {type: String, required: true},
         image: {type: String, required: true },
         user: {type: String, required: true},
-      
+        likes: []
        
          
     },

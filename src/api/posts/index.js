@@ -6,6 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import postModel from "./model.js";
 import q2m from "query-to-mongo";
+import userModel from "../me/model.js";
 
 const localEndpoint = `${process.env.LOCAL_URL}${process.env.PORT}/users`;
 /* const serverEndpoint= `${process.env.SERVER_URL}/users` */
@@ -101,7 +102,7 @@ postsRouter.put("/:postId", async (req, res, next) => {
       { ...req.body },
       { new: true, runValidators: true }
     );
-    console.log(req.headers.origin, "PUT Post at:", new Date());
+ 
 
     res.status(200).send(updatedPost);
   } catch (error) {
@@ -122,5 +123,52 @@ postsRouter.delete("/:postId", async (req, res, next) => {
     next(error);
   }
 });
+
+postsRouter.get("/:postId/likes", async (req, res, next) => {
+  try {
+    const post = await postModel.findById(req.params.postId)
+    if(post){
+      const likes = post.likes
+      res.status(200).send(likes)
+    }else{
+      next(createHttpError(404, "post not found"))
+    }
+   
+  } catch (error) {
+    next(error)
+  }
+})
+
+postsRouter.put("/:postId/likes/:userId", async (req, res, next) => {
+  try {
+    const post = await postModel.findById(req.params.postId)
+    if(post){
+      if(post.likes.includes(req.params.userId)){
+        const postLikesArray = post
+
+        const index = postLikesArray.likes.indexOf(req.params.userId)
+        postLikesArray.likes.splice(index, 1)
+        await postLikesArray.save()
+          res.status(200).send( {message: "like removed"})
+      }else{
+        const user = await userModel.findById(req.params.userId)
+        const { _id } = await user.save();
+        const updatedPost = await postModel.findByIdAndUpdate(post._id)
+        updatedPost.likes.length > 0 ? updatedPost.likes = [...updatedPost.likes, _id] : updatedPost.likes = [_id]
+        await updatedPost.save()
+        res.status(200).send( {message: "like added", _id})
+      }
+   
+    }else{
+      next(createHttpError(404, "post not found"))
+    }
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
+
+
 
 export default postsRouter;
