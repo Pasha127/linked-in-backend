@@ -149,7 +149,11 @@ postsRouter.get("/:postId/likes", async (req, res, next) => {
 
 postsRouter.put("/:postId/likes/:userId", async (req, res, next) => {
   try {
-    const post = await postModel.findById(req.params.postId)
+    const post = await postModel.findById(req.params.postId).populate({
+      path: "User",
+      select: "name surname",
+      strictPopulate: false
+    })
     if(post){
       if(post.likes.includes(req.params.userId)){
         const postLikesArray = post
@@ -161,10 +165,14 @@ postsRouter.put("/:postId/likes/:userId", async (req, res, next) => {
       }else{
         const user = await userModel.findById(req.params.userId)
         const { _id } = await user.save();
-        const updatedPost = await postModel.findByIdAndUpdate(post._id)
+        const updatedPost = await postModel.findByIdAndUpdate(post._id).populate({
+          path: "User",
+          select: "name surname",
+          strictPopulate: false
+        })
         updatedPost.likes.length > 0 ? updatedPost.likes = [...updatedPost.likes, _id] : updatedPost.likes = [_id]
         await updatedPost.save()
-        res.status(200).send( {message: "like added", _id})
+        res.status(200).send( {message: "like added", updatedPost})
       }
    
     }else{

@@ -90,6 +90,24 @@ userRouter.get("/", async (req, res, next) => {
       users,
     });
   } catch (error) {
+   
+    next(error);
+  }
+});
+
+userRouter.get("/me", async (req, res, next) => {
+  try {
+    console.log(req.headers.authorization, `GET user: ${req.headers} at:`, new Date());
+    const username= req.headers.authorization;
+    const foundUser = await userModel.findOne({username: username});
+    console.log(foundUser, "foundUser");
+    if (foundUser) {
+      res.status(200).send(foundUser);
+    } else {
+      next(createHttpError(404, "User Not Found"));
+    }
+  } catch (error) {
+    console.log(error);
     next(error);
   }
 });
@@ -121,6 +139,7 @@ userRouter.get("/:userId", async (req, res, next) => {
       next(createHttpError(404, "User Not Found"));
     }
   } catch (error) {
+    console.log("soooso", error)
     next(error);
   }
 });
@@ -137,30 +156,7 @@ userRouter.post("/",
       const newUser = new userModel(req.body);
       const { _id } = await newUser.save();
       res.status(201).send({ message: `Added a new user.`, _id });
-      }
-    } catch (error) {
-       console.log(error) 
-      next(error);
-    }
-  }
-);
-
-userRouter.put(
-  "/images/:userId/pic",
-  cloudinaryUploader,
-  async (req, res, next) => {
-    
-    try {
-      console.log("Tried to put a pic.", req.file.path);
-      const foundUser = await userModel.findByIdAndUpdate(
-        req.params.userId,
-        { image: req.file.path },
-        { new: true, runValidators: true }
-      );
-
-      res.status(201).send({ message: "User Pic Uploaded" });
-    } catch (error) {
-      console.log(error)
+    }} catch (error) { 
       next(error);
     }
   }
@@ -169,7 +165,6 @@ userRouter.put(
   "/images/:userId/pic",
   cloudinaryUploader,
   async (req, res, next) => {
-    
     try {
       console.log("Tried to put a pic.", req.file.path);
       const foundUser = await userModel.findByIdAndUpdate(

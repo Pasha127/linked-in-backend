@@ -8,7 +8,8 @@ const postDbSchema = new Schema(
         username: {type: String, required: true},
         image: {type: String, default:"https://cdn.pixabay.com/photo/2017/08/22/11/55/linked-in-2668688_960_720.png" },
         user: [{ type: Schema.Types.ObjectId, ref: "User" }],
-        likes: []
+        likes: [{ type: Schema.Types.ObjectId, ref: "User" }]
+
        
          
     },
