@@ -90,6 +90,7 @@ userRouter.get("/", async (req, res, next) => {
       users,
     });
   } catch (error) {
+   
     next(error);
   }
 });
@@ -104,6 +105,7 @@ userRouter.get("/:userId", async (req, res, next) => {
       next(createHttpError(404, "User Not Found"));
     }
   } catch (error) {
+    console.log("soooso", error)
     next(error);
   }
 });
@@ -120,7 +122,7 @@ userRouter.post(
 
       res.status(201).send({ message: `Added a new user.`, _id });
     } catch (error) {
-      console.log(error)
+      
       next(error);
     }
   }
