@@ -200,13 +200,13 @@ userRouter.put("/:userId", async (req, res, next) => {
     next(error);
   }
 });
-userRouter.put("/experience/:userId", async (req, res, next) => {
+userRouter.post("/experience/:userId", async (req, res, next) => {
   try {
     const foundUser = await userModel.findById(
       req.params.userId);
       foundUser.experiences.push({...req.body});
       foundUser.save()
-    console.log(req.headers.origin, "PUT experience at:", new Date());
+    console.log(req.headers.origin, "POST experience at:", new Date());
     res.status(200).send(foundUser);
   } catch (error) {
     console.log(error)
