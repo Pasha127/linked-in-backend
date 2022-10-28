@@ -67,8 +67,9 @@ postsRouter.post(
   checkValidationResult,
   async (req, res, next) => {
     try {
-      console.log(req.body, "POST user at:", new Date());
+      console.log(req.headers.origin, "POST user at:", new Date());
       const newPost = new postModel(req.body)
+      console.log(newPost)
       const { _id } = await newPost.save();
 
       res.status(201).send({ message: `Added a new Post.`, _id });
