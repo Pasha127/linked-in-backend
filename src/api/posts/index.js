@@ -30,7 +30,11 @@ postsRouter.get("/", async (req, res, next) => {
       .find(mongoQuery.criteria, mongoQuery.options.fields)
       .sort(mongoQuery.options.sort)
       .skip(mongoQuery.options.skip)
-      .limit(mongoQuery.options.limit);
+      .limit(mongoQuery.options.limit)      
+      .populate({
+        path: "user",
+        select: "name surname username image"
+      })
     res.status(200).send({
       links: mongoQuery.links(serverEndpoint, total),
       total,
@@ -64,7 +68,7 @@ postsRouter.post(
   async (req, res, next) => {
     try {
       console.log(req.headers.origin, "POST user at:", new Date());
-      const newPost = new postModel(req.body);
+      const newPost = new postModel(req.body)
       const { _id } = await newPost.save();
 
       res.status(201).send({ message: `Added a new Post.`, _id });
@@ -74,6 +78,8 @@ postsRouter.post(
     }
   }
 );
+
+
 
 postsRouter.put(
   "/images/:postId",
@@ -97,6 +103,7 @@ postsRouter.put(
 
 postsRouter.put("/:postId", async (req, res, next) => {
   try {
+    console.log(req);
     const updatedPost = await postModel.findByIdAndUpdate(
       req.params.postId,
       { ...req.body },

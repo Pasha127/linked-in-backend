@@ -5,27 +5,16 @@ const postSchema = {
   text: {
     in: ["body"],
     isString: {
-      errorMessage: "Title is a mandatory field and needs to be a string!",
+      errorMessage: "Text is a mandatory field and needs to be a string!",
     },
   },
   username: {
     in: ["body"],
     isString: {
-      errorMessage: "Category is a mandatory field and needs to be a string!",
+      errorMessage: "Username is a mandatory field and needs to be a string!",
     },
-  },
-  image: {
-    in: ["body"],
-    isString: {
-      errorMessage: "Category is a mandatory field and needs to be a string!",
-    },
-  },
-  user: {
-    in: ["body"],
-    isString: {
-      errorMessage: "Category is a mandatory field and needs to be a string!",
-    },
-  },
+  }
+  
   
 }
 
